@@ -17,7 +17,7 @@ if __name__ == "__main__":
         opendoor = doors[randint(0,1)]
     else:
         opendoor = doors[0]
-    change = input(f"oooo interesting choice. I can assure you that one of the doors you did not pick door {opendoor} is not correct door \nknowing this do you want to change your answer(y/n) ")
+    change = input(f"oooo interesting choice. I can assure you that one of the doors you did not pick, door {opendoor} is not correct door \nknowing this do you want to change your answer(y/n) ")
     if (change == 'y'):
         choice = int(input("what would you like to change your answer to? "))
     if choice == car_door:
