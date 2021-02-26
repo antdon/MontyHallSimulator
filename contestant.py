@@ -1,59 +1,28 @@
-import os
-import sys
 import pdb
 from random import *
+from montyhall import Montyhall
 
+class contestant:
+    def __init__(self, runs):
+        self.runs = runs
+    def play(self):
+        swapCount = 0
+        stayCount = 0
+        for i in range(self.runs):
+            monty = Montyhall(True, randint(1,3))
+            if monty.runGame() == True:
+                 swapCount += 1
+        for i in range(self.runs):
+            monty2 = Montyhall(False, randint(1,3))
+            if monty2.runGame() == True:
+                 stayCount += 1
 
-def remaining_door(line, choice):
-    notchange = int(line[86])
-    doors = [1,2,3]
-    doors.remove(choice)
-    doors.remove(notchange)
-    return(str(doors[0]))
+        return([["swap", swapCount/self.runs],["stay", stayCount/self.runs]])
 
-def contestant(change):
-    (read_fd, write_fd) = os.pipe() #Create pipe1
-    (read_fd2, write_fd2) = os.pipe() #Create pipe2
-    n = os.fork()
-    if n == 0:
-        #child process
-        os.dup2(read_fd, 0) #replace stdin with the read end of pipe1
-        os.close(write_fd)
-       #os.dup2(write_fd2, 1) #replace stdout with the write end of pipe2
-        os.execlp("python3", "python3", "montyhall.py") 
-    else:
-        #parent process
-        os.dup2(write_fd, 1) #replace stdout with the write end of pipe1
-       #os.close(read_fd) 
-       #os.dup2(read_fd2, 0) #replace stdin with the read end of pipe 2
-       #os.close(read_fd2) 
-        choice = randint(1,3)
-        input("")
-        print(choice)
-        input("")
-        if change == False:
-            print("n")
-            didYouWin = input("")
-            if didYouWin[0] == "C":
-                return True
-            else:
-                return False
-        else:
-            print("y")
-            line = input("")
-            remainingDoor = remaining_door(line, choice)
-            print(remainingDoor)
-            didYouWin = input("")
-            if didYouWin[0] == "C":
-                return True
-            else:
-                return False
-            
-boy = contestant(True)
-if boy:
-    print("yeah", sys.stderr)
-else:
-    print("nah", sys.stderr)
+#example
+#anton = contestant(10000)
+#print(anton.play())
+
 
 
 
