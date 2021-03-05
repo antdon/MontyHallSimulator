@@ -2,10 +2,10 @@ import pdb
 from random import *
 from montyhall import Montyhall
 
-class contestant:
+class Contestant:
     def __init__(self, runs):
         self.runs = runs
-    def play(self):
+    def play(self) -> []:
         swapCount = 0
         stayCount = 0
         for i in range(self.runs):
@@ -17,11 +17,11 @@ class contestant:
             if monty2.runGame() == True:
                  stayCount += 1
 
-        return([["swap", swapCount/self.runs],["stay", stayCount/self.runs]])
+        return([("swap wins", swapCount), ("swap runs", self.runs), ("stay wins", stayCount), ("stay runs", self.runs)])
 
 #example
-#anton = contestant(10000)
-#print(anton.play())
+anton = Contestant(100000)
+print(anton.play())
 
 
 
